@@ -61,7 +61,7 @@ def home(request):
 
             x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)
             
-            model = keras.models.load_model('mock_model')
+            model = keras.models.load_model('our_model')
             
             i = np.random.randint(0, x_test.shape[0])
             p = model.predict(np.array([x_test[i]]))
@@ -237,13 +237,13 @@ def home(request):
                 x=x_train,
                 y=y_train,
                 validation_data=(x_test,y_test),
-                batch_size=462,
-                epochs=1,
+                batch_size=32,
+                epochs=3,
                 callbacks=callbacks,
                 verbose=1
             )
 
-            model.save("mock_model")
+            model.save("our_model")
             model.evaluate(x_test, y_test)
 
             df = pd.read_csv("ner_dataset.csv", encoding="latin1")
